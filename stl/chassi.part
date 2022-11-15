@@ -1,0 +1,13 @@
+{
+    "configuration": "default",
+    "documentId": "8b4d0bdc8eb12a7b18efcbcd",
+    "documentMicroversion": "142f322ce89a5945fd44bd56",
+    "elementId": "bd0e60ca0b0057f210e826ac",
+    "fullConfiguration": "default",
+    "id": "MBzhCTPNpdN2ned6G",
+    "isStandardContent": false,
+    "name": "chassi <1>",
+    "partId": "JHD",
+    "suppressed": false,
+    "type": "Part"
+}

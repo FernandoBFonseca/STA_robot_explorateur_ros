@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/fernando/catkin_ws/src/STA_robot_explorateur_ros/build/devel/setup.sh

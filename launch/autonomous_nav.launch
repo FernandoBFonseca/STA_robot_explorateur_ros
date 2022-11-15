@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <rosparam file="$(find STA_robot_explorateur_ros)/config/controllers.yaml" command="load"/>
+  <rosparam file="$(find STA_robot_explorateur_ros)/config/joint_limits.yaml" command="load"/>
+  <arg name="map_file" default="$(find STA_robot_explorateur_ros)/maps/map.yaml"/>
+
+  <arg name="model" default="$(find STA_robot_explorateur_ros)/urdf/mobile_robot.urdf.xacro"/>
+  
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+  
+  <node name="robot_controller" pkg="STA_robot_explorateur_ros" type="robot_controller" output = "screen">
+  </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+  </node>
+  
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find STA_robot_explorateur_ros)/config/rviz_config.rviz"/>
+  
+  <!--node name="telop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py"/>-->
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4"
+    args="0.0007 0 0.1375 -1.047198 0 0 /base_plate /laser_frame 40" />
+    
+  
+  <include file="$(find STA_robot_explorateur_ros)/launch/amcl.launch" />
+  <include file="$(find STA_robot_explorateur_ros)/launch/move_base.launch" /> 
+ 
+</launch>

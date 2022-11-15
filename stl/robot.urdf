@@ -1,0 +1,243 @@
+<robot name="onshape">
+<link name="chassi">
+<visual>
+<origin xyz="0.092 -5.63338e-18 0.055" rpy="0 -0 1.5708" />
+<geometry>
+<mesh filename="package:///chassi.stl"/>
+</geometry>
+<material name="chassi_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0.092 -5.63338e-18 0.055" rpy="0 -0 1.5708" />
+<geometry>
+<mesh filename="package:///chassi.stl"/>
+</geometry>
+<material name="chassi_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="6.29936e-18 0.0725461 0" rpy="-6.12323e-17 -1.5708 0" />
+<geometry>
+<mesh filename="package:///tire.stl"/>
+</geometry>
+<material name="tire_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="6.29936e-18 0.0725461 0" rpy="-6.12323e-17 -1.5708 0" />
+<geometry>
+<mesh filename="package:///tire.stl"/>
+</geometry>
+<material name="tire_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="-2.59231e-18 -0.0725461 -1.53411e-20" rpy="-3.14159 1.5708 0" />
+<geometry>
+<mesh filename="package:///tire.stl"/>
+</geometry>
+<material name="tire_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-2.59231e-18 -0.0725461 -1.53411e-20" rpy="-3.14159 1.5708 0" />
+<geometry>
+<mesh filename="package:///tire.stl"/>
+</geometry>
+<material name="tire_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="4.56181e-18 0.0725 -3.08149e-33" rpy="-6.12323e-17 -1.5708 0" />
+<geometry>
+<mesh filename="package:///wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="4.56181e-18 0.0725 -3.08149e-33" rpy="-6.12323e-17 -1.5708 0" />
+<geometry>
+<mesh filename="package:///wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="-4.31688e-18 -0.0725 3.08149e-33" rpy="-3.14159 1.5708 0" />
+<geometry>
+<mesh filename="package:///wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-4.31688e-18 -0.0725 3.08149e-33" rpy="-3.14159 1.5708 0" />
+<geometry>
+<mesh filename="package:///wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</collision>
+<inertial>
+<origin xyz="0.0625287 2.7008e-19 0.0490931" rpy="0 0 0"/>
+<mass value="0.802875" />
+<inertia ixx="0.00158104" ixy="2.03288e-19"  ixz="0.000263818" iyy="0.00557125" iyz="-2.71051e-20" izz="0.00539666" />
+</inertial>
+</link>
+
+<link name="lidar">
+<visual>
+<origin xyz="-0.00075 -4.33681e-18 0.025" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package:///lidar.stl"/>
+</geometry>
+<material name="lidar_material">
+<color rgba="0.501961 0.501961 0.501961 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.00075 -4.33681e-18 0.025" rpy="0 -0 0" />
+<geometry>
+<mesh filename="package:///lidar.stl"/>
+</geometry>
+<material name="lidar_material">
+<color rgba="0.501961 0.501961 0.501961 1.0"/>
+</material>
+</collision>
+<inertial>
+<origin xyz="-0.000657997 0.00675528 0.0202669" rpy="0 0 0"/>
+<mass value="0.179255" />
+<inertia ixx="0.000129341" ixy="1.0863e-07"  ixz="4.16682e-07" iyy="8.27724e-05" iyz="2.13132e-05" izz="0.0001478" />
+</inertial>
+</link>
+
+<joint name="laser" type="fixed">
+<origin xyz="-1.38776e-17 0.0007 0.1375" rpy="2.18548e-16 -0 1.5708" />
+<parent link="chassi" />
+<child link="lidar" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" />
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="steering">
+<visual>
+<origin xyz="-0.1005 -2.77556e-17 -0.013" rpy="-1.01028e-15 -0.3744 -1.5708" />
+<geometry>
+<mesh filename="package:///wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.1005 -2.77556e-17 -0.013" rpy="-1.01028e-15 -0.3744 -1.5708" />
+<geometry>
+<mesh filename="package:///wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0.100454 0 -0.013" rpy="1.5708 -1.5708 0" />
+<geometry>
+<mesh filename="package:///tire.stl"/>
+</geometry>
+<material name="tire_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0.100454 0 -0.013" rpy="1.5708 -1.5708 0" />
+<geometry>
+<mesh filename="package:///tire.stl"/>
+</geometry>
+<material name="tire_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="9.85638e-21 0 -0.007" rpy="0 2.4641e-16 2.92401e-46" />
+<geometry>
+<mesh filename="package:///steering.stl"/>
+</geometry>
+<material name="steering_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="9.85638e-21 0 -0.007" rpy="0 2.4641e-16 2.92401e-46" />
+<geometry>
+<mesh filename="package:///steering.stl"/>
+</geometry>
+<material name="steering_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="-0.100454 0 -0.013" rpy="-1.22836e-15 -0.3744 -1.5708" />
+<geometry>
+<mesh filename="package:///tire.stl"/>
+</geometry>
+<material name="tire_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.100454 0 -0.013" rpy="-1.22836e-15 -0.3744 -1.5708" />
+<geometry>
+<mesh filename="package:///tire.stl"/>
+</geometry>
+<material name="tire_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<visual>
+<origin xyz="0.1005 2.77556e-17 -0.013" rpy="1.5708 -1.5708 0" />
+<geometry>
+<mesh filename="package:///wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0.1005 2.77556e-17 -0.013" rpy="1.5708 -1.5708 0" />
+<geometry>
+<mesh filename="package:///wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.917647 0.917647 0.917647 1.0"/>
+</material>
+</collision>
+<inertial>
+<origin xyz="-3.3331e-17 1.43289e-18 -0.00781564" rpy="0 0 0"/>
+<mass value="0.156136" />
+<inertia ixx="4.58808e-05" ixy="-1.32758e-19"  ixz="2.35475e-19" iyy="0.000962078" iyz="-1.27922e-20" izz="0.000962727" />
+</inertial>
+</link>
+
+<joint name="steering" type="revolute">
+<origin xyz="0.192 1.38679e-17 0.013" rpy="-1.2326e-30 1.67633e-30 1.5708" />
+<parent link="chassi" />
+<child link="steering" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-0.523599" upper="0.523599"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+
+</robot>
