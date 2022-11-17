@@ -22,11 +22,13 @@ double theta = 0.0;
 ros::Time current_time;
 ros::Time speed_time(0.0);
 
+//Function to calculate turning speed with steering angle and velocity
 double steering_angle_trans_vel_2_rot_vel(double v, double phi){
   
   return v*tan(phi)/wheelbase;
 }
 
+//Message callback function to read position and speed estimations
 void handle_speed( const geometry_msgs::Vector3Stamped& speed) {
   speed_est_linear = 3.86*trunc(speed.vector.x*100)/100;
   ROS_INFO("speed linear : %f\n", speed_est_linear);
@@ -41,7 +43,9 @@ void handle_speed( const geometry_msgs::Vector3Stamped& speed) {
 
 
 int main(int argc, char** argv){
-  ros::init(argc, argv, "nox_controller");
+
+  //ROS setup
+  ros::init(argc, argv, "controller");
 
   ros::NodeHandle n;
   ros::NodeHandle nh_private_("~");
@@ -92,22 +96,26 @@ int main(int argc, char** argv){
     if (dxy > 0) dxy *= linear_scale_positive;
     if (dxy < 0) dxy *= linear_scale_negative;
 
+    //Calculation of Δx and Δy variation
     dx = cos(dth) * dxy;
     dy = sin(dth) * dxy;
 
+    //Calculation new position 
     x_pos += (cos(theta) * dx - sin(theta) * dy);
     y_pos += (sin(theta) * dx + cos(theta) * dy);
     theta += dth;
 
+    //check if abs(theta) > 2pi
     if(theta >= two_pi) theta -= two_pi;
     if(theta <= -two_pi) theta += two_pi;
 
+    //Creating rotation quaternion for baselink and steering bar
     geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(theta);
     geometry_msgs::Quaternion steering_quat = tf::createQuaternionMsgFromYaw(position_est_steering);
 
     if(publish_tf) {
+      //Filling up transformations (/odom -> /base_link) and (/base_link -> /steering)
       geometry_msgs::TransformStamped t;
-      //geometry_msgs::TransformStamped k;
       geometry_msgs::TransformStamped s;
 
       
@@ -131,6 +139,7 @@ int main(int argc, char** argv){
       broadcaster.sendTransform(s);
     }
 
+    //Filling up odom message
     nav_msgs::Odometry odom_msg;
     odom_msg.header.stamp = current_time;
     odom_msg.header.frame_id = odom;
@@ -176,7 +185,7 @@ int main(int argc, char** argv){
     odom_msg.twist.twist.linear.x = vx;
     odom_msg.twist.twist.linear.y = 0.0;
     odom_msg.twist.twist.angular.z = dth;
-
+    
     odom_pub.publish(odom_msg);
     r.sleep();
   }
